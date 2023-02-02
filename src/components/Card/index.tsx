@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CardStyled, CardImageStyled, CardInfoStyled, CardInfoTitle,CardInfoType, TextIdStyled, TextNameStyled, CardDetailsStyled  } from './styles'
+import { CardStyled, CardImageStyled, CardInfoStyled, CardInfoTitle, TextIdStyled, TextNameStyled, CardDetailsStyled, ImageStyled  } from './styles'
 import { CardProps } from './interface'
 import { api } from '../../lib/axios'
 
@@ -16,15 +16,11 @@ const Card = ({name}: CardProps) => {
       });
   }, [name]);
 
-
-
-  console.log('teste', pokemon.types)
-  
   return(
     <CardStyled>
       <CardInfoStyled>
         <CardImageStyled>
-          <img src={pokemon?.sprites.other.dream_world.front_default} alt={pokemon?.name} />
+          <ImageStyled src={pokemon?.sprites.other.dream_world.front_default} alt={pokemon?.name} />
         </CardImageStyled>
       </CardInfoStyled>
       <CardDetailsStyled>
@@ -32,15 +28,6 @@ const Card = ({name}: CardProps) => {
           <TextIdStyled>#{pokemon?.order}</TextIdStyled> 
           <TextNameStyled>{pokemon?.name}</TextNameStyled> 
         </CardInfoTitle>        
-        <CardInfoType>
-          {pokemon.types.map((element: any) => {
-            return(
-              <>
-                {element.type.name}
-              </>
-            )
-          })}
-        </CardInfoType>
       </CardDetailsStyled>
     </CardStyled>
   )

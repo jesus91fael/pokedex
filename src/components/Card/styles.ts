@@ -26,7 +26,7 @@ export const CardImageStyled = styled.div`
   justify-content: center;
   padding: 10px;
   //colocar cor de acordo com o tipo
-  background-color: purple;
+  background-color: #d6d6ff;
   border-radius: 5px 5px 0 0;
 
 `
@@ -35,6 +35,11 @@ export const CardInfoStyled = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+`
+
+export const ImageStyled = styled.img`
+  width: 120px;
+  max-height: 120px;
 `
 
 export const CardInfoTitle = styled.div`
@@ -73,9 +78,3 @@ export const TextIdStyled = styled.h6`
 
 `
 
-export const CardInfoType = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-`
