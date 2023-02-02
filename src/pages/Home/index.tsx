@@ -16,7 +16,7 @@ const Home = () => {
       });
     }, []);
     
-  console.log('pokemon', pokemons.results)
+  console.log('pokemon', pokemons)
 const teste = [{"name": "ditto"}, {"name": "pikachu"}]
   return(
     <>

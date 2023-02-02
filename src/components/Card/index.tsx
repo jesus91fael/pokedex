@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { CardStyled, CardImageStyled, CardInfoStyled, CardInfoTitle,CardInfoType  } from './styles'
+import { CardStyled, CardImageStyled, CardInfoStyled, CardInfoTitle,CardInfoType, TextIdStyled, TextNameStyled, CardDetailsStyled  } from './styles'
 import { CardProps } from './interface'
 import { api } from '../../lib/axios'
+
 const Card = ({name}: CardProps) => {
 
   const [pokemon, setPokemon] = useState<any>({})
@@ -13,32 +14,34 @@ const Card = ({name}: CardProps) => {
       .catch((err: any) => {
         console.error("ops! ocorreu um erro" + err);
       });
-  }, []);
+  }, [name]);
 
 
 
-  console.log('teste', pokemon.order)
+  console.log('teste', pokemon.types)
   
   return(
     <CardStyled>
-      <CardImageStyled>
-        {/* <img src={pokemon?.abilities?.sprites.other.dream_world.front_default} alt={pokemon?.abilities.name} /> */}
-      </CardImageStyled>
       <CardInfoStyled>
-        <CardInfoTitle>
-          <span>{pokemon?.order}</span> 
-          {/* <span>{pokemon?.name}</span>  */}
-        </CardInfoTitle>
+        <CardImageStyled>
+          <img src={pokemon?.sprites.other.dream_world.front_default} alt={pokemon?.name} />
+        </CardImageStyled>
+      </CardInfoStyled>
+      <CardDetailsStyled>
+        <CardInfoTitle>          
+          <TextIdStyled>#{pokemon?.order}</TextIdStyled> 
+          <TextNameStyled>{pokemon?.name}</TextNameStyled> 
+        </CardInfoTitle>        
         <CardInfoType>
-          {/* {pokemon.types.map((element: any) => {
+          {pokemon.types.map((element: any) => {
             return(
               <>
-              {element.name}
+                {element.type.name}
               </>
             )
-          })} */}
+          })}
         </CardInfoType>
-      </CardInfoStyled>
+      </CardDetailsStyled>
     </CardStyled>
   )
 }
