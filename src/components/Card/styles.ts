@@ -63,7 +63,7 @@ export const TextNameStyled = styled.h5`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 2px;
+  font-weight: 900 ;
   font-size: 16px;
   text-transform: uppercase;
 `
@@ -72,7 +72,6 @@ export const TextIdStyled = styled.h6`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 2px;
   color: #7c7c7c;
   font-size: 14px;
 

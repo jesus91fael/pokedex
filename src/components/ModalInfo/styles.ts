@@ -11,7 +11,20 @@ export const TitleStyled = styled.h1`
 export const ModalContentStyled = styled.div`
   display: flex;
   flex-direction: row;
-  height: 200px;
+  height: 400px;
+  align-items: center;
+  justify-content: center;
+`
+
+export const ModalContentStatslineStyled = styled.div`
+  width: ${(props) => props.color || 0}%;
+  border: 1px solid red;
+`
+
+export const ModalContentStatsContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `
 
 export const ModalContentImageStyled = styled.div`
@@ -32,6 +45,26 @@ export const ImageStyled = styled.img`
 export const ModalContentInfoStyled = styled.div`
   width: 70%;
   margin-left: 10px;
+`
+
+export const ModalContentTypeSdtyled = styled.div`
+  display: flex;
+`
+
+export const ModalContentDetailStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between ;
+`
+
+export const ModalContentWeaknesses = styled.div`
+  display: flex;
+`
+
+export const ModalContentStats = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `
 
 export const Orderstyled = styled.h6`

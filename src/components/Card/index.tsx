@@ -20,7 +20,7 @@ const Card = ({name}: CardProps) => {
     <CardStyled>
       <CardInfoStyled>
         <CardImageStyled>
-          <ImageStyled src={pokemon?.sprites.other.dream_world.front_default} alt={pokemon?.name} />
+          {/* <ImageStyled src={pokemon?.sprites.other.dream_world.front_default} alt={pokemon?.name} /> */}
         </CardImageStyled>
       </CardInfoStyled>
       <CardDetailsStyled>

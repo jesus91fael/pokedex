@@ -5,9 +5,15 @@ import { api } from "../../lib/axios";
 import { ModalProps } from "./interface";
 import {
   ImageStyled,
+  ModalContentDetailStyled,
   ModalContentImageStyled,
   ModalContentInfoStyled,
+  ModalContentStats,
+  ModalContentStatsContent,
+  ModalContentStatslineStyled,
   ModalContentStyled,
+  ModalContentTypeSdtyled,
+  ModalContentWeaknesses,
   Orderstyled,
   TitleContentStyled,
   TitleStyled,
@@ -43,7 +49,42 @@ const ModalInfo = ({ isOpen, handleClose, name }: ModalProps) => {
               alt={pokemon?.name}
             />
           </ModalContentImageStyled>
-          <ModalContentInfoStyled></ModalContentInfoStyled>
+          <ModalContentInfoStyled>
+            <ModalContentTypeSdtyled>
+              {pokemon?.types.map((element: any, index: number) =>{
+              return(
+                <span key={index}>{element.type.name}</span>
+              )
+            })}
+            </ModalContentTypeSdtyled>
+            <ModalContentDetailStyled>
+            <span>Height<br/>{pokemon?.height/10}m</span>
+            <span>Weight<br/>{pokemon.weight/10}Kg</span>
+            <span>abilities<br/>
+              <select>
+              {pokemon?.abilities.map((element: any, index: number) =>{
+                return(
+                <option key={index}>{element.ability.name}</option>
+          
+              )})}
+              </select>
+            </span>
+            </ModalContentDetailStyled>
+            <ModalContentWeaknesses>
+
+            </ModalContentWeaknesses>
+            <ModalContentStats>
+              {pokemon?.stats.map((element: any, index: number) =>{
+                return(        
+                  <ModalContentStatsContent key={index}>
+                    {element.stat.name}
+                      <ModalContentStatslineStyled color={element.base_stat}/>
+                    {element.base_stat}
+                  </ModalContentStatsContent>                   
+                )
+              })}
+            </ModalContentStats>
+          </ModalContentInfoStyled>
         </ModalContentStyled>
       </Modal.Body>
       <Modal.Footer>
