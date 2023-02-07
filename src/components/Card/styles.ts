@@ -17,6 +17,12 @@ export const CardStyled = styled.div`
   }
 `
 
+export const CardInfoStyled = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
 export const CardImageStyled = styled.div`
   width: 100%;
   height: 200px;
@@ -31,15 +37,17 @@ export const CardImageStyled = styled.div`
 
 `
 
-export const CardInfoStyled = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
 export const ImageStyled = styled.img`
   width: 120px;
   max-height: 120px;
+`
+
+export const CardDetailsStyled = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
 `
 
 export const CardInfoTitle = styled.div`
@@ -50,12 +58,13 @@ export const CardInfoTitle = styled.div`
   padding: 10px;
 `
 
-export const CardDetailsStyled = styled.div`
-  width: 100%;
+export const TextIdStyled = styled.h6`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
+  justify-content: center;
+  flex-direction: column;
+  color: #7c7c7c;
+  font-size: 14px;
 `
 
 export const TextNameStyled = styled.h5`
@@ -67,13 +76,3 @@ export const TextNameStyled = styled.h5`
   font-size: 16px;
   text-transform: uppercase;
 `
-export const TextIdStyled = styled.h6`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  color: #7c7c7c;
-  font-size: 14px;
-
-`
-

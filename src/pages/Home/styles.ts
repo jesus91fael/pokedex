@@ -20,5 +20,3 @@ export const ListCardsStyled = styled.div`
   margin: 20px auto;
   flex-wrap: wrap;
 `
-
-

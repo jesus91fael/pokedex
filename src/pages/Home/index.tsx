@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import ModalInfo from "../../components/ModalInfo";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
-import { api } from "../../lib/axios"
+import { api } from "../../lib/axios";
 import { ListCardsStyled, PageStyled } from "./styles";
 
 const Home = () => {
-
-  const [pokemons, setPokemons] = useState<any[]>([])
+  const [pokemons, setPokemons] = useState<any[]>([]);
 
   useEffect(() => {
     api
@@ -16,37 +15,47 @@ const Home = () => {
       .catch((err: any) => {
         console.error("ops! ocorreu um erro" + err);
       });
-    }, []);
-    
+  }, []);
+
   const [show, setShow] = useState(false);
-  const [itemSelecionado, setItemSelecionado] = useState('');
+  const [itemSelecionado, setItemSelecionado] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = (item: any) => {
-    setItemSelecionado(item)
-    setShow(true)
-  }
+    setItemSelecionado(item);
+    setShow(true);
+  };
 
-
-  console.log('pokemon', pokemons)
-const teste = [{"name": "pikachu"}, {"name": "ditto"}, {"name": "psyduck"}, {"name": "bulbasaur"}, {"name": "charmander"}, {"name": "squirtle"}]
-  return(
+  console.log("pokemon", pokemons);
+  const teste = [
+    { name: "pikachu" },
+    { name: "ditto" },
+    { name: "psyduck" },
+    { name: "bulbasaur" },
+    { name: "charmander" },
+    { name: "squirtle" },
+  ];
+  return (
     <PageStyled>
       <Header />
       <ListCardsStyled>
         {pokemons.map((element: any, index: number) => {
-          return(
+          return (
             <>
               <span onClick={() => handleShow(element.name)}>
-                <Card name={element.name} key={index}/>
-              </span>            
-              <ModalInfo isOpen={show} handleClose={handleClose} name={itemSelecionado}/>              
-          </>
-          )
+                <Card name={element.name} key={index} />
+              </span>
+              <ModalInfo
+                isOpen={show}
+                handleClose={handleClose}
+                name={itemSelecionado}
+              />
+            </>
+          );
         })}
       </ListCardsStyled>
-    </PageStyled>   
-  )
-}
+    </PageStyled>
+  );
+};
 
-export default Home
+export default Home;
