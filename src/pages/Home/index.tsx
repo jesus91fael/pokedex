@@ -5,10 +5,17 @@ import Header from "../../components/Header";
 import { api } from "../../lib/axios";
 import { ListCardsStyled, PageStyled } from "./styles";
 
+interface PokemonProps {
+  id: string;
+  name: string;
+}
+
 const Home = () => {
   let NUMBER_POKEMONS = 18;
+  const NUMBER_MAX_POKEMONS_API = 1279;
 
   const [pokemons, setPokemons] = useState<any[]>([]);
+  const [pokemonSearch, setPokemonSearch] = useState("");
   const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
 
   const [show, setShow] = useState(false);
@@ -18,20 +25,17 @@ const Home = () => {
   const handleShow = (item: any) => {
     setItemSelecionado(item);
     setShow(true);
-  }
-  // useEffect(() => {
-  //   api
-  //     .get(`/`)
-  //     .then((response: any) => setPokemons(response.data.results))
-  //     .catch((err: any) => {
-  //       console.error("ops! ocorreu um erro" + err);
-  //     });
-  // }, [count, countInitial, pokemons]);
+  };
 
-  // const handleMorePokemons = () =>{
-  //   count = count + 20
-  // }
-  // ///
+  const handleSearchPokemons = useCallback(async () => {
+    const response = await api.get(`?limit=${NUMBER_MAX_POKEMONS_API}`);
+    console.log("entre");
+    setPokemonSearch(pokemonSearch.toLocaleLowerCase());
+    const pokemonsSearch = response.data.results.filter(
+      ({ name }: PokemonProps) => name.includes(pokemonSearch)
+    );
+    setPokemons(pokemonsSearch);
+  }, [pokemonSearch]);
 
   const handlePokemonsListDefault = useCallback(async () => {
     const response = await api.get("/", {
@@ -42,32 +46,38 @@ const Home = () => {
     setPokemons(response.data.results);
   }, [NUMBER_POKEMONS]);
 
-  
-const handleMorePokemons = useCallback(
-  async (offset: any) => {
-    const response = await api.get(`/`, {
-      params: {
-        offset,
-        limit: NUMBER_POKEMONS,
-      },
-    });
+  const handleMorePokemons = useCallback(
+    async (offset: any) => {
+      const response = await api.get(`/`, {
+        params: {
+          offset,
+          limit: NUMBER_POKEMONS,
+        },
+      });
 
-    setPokemons(state => [...state, ...response.data.results]);
-    setPokemonsOffsetApi(state => state + NUMBER_POKEMONS);
-    console.log('pokemons', pokemons)
-  },
-  [NUMBER_POKEMONS, pokemons],
-);
-
-  
+      setPokemons((state) => [...state, ...response.data.results]);
+      setPokemonsOffsetApi((state) => state + NUMBER_POKEMONS);
+      console.log("pokemons", pokemons);
+    },
+    [NUMBER_POKEMONS, pokemons]
+  );
 
   useEffect(() => {
-    handlePokemonsListDefault();
-  }, [handlePokemonsListDefault]);
+    const isSearch = pokemonSearch.length >= 2;
+
+    if (isSearch) handleSearchPokemons();
+    else handlePokemonsListDefault();
+  }, [handlePokemonsListDefault, handleSearchPokemons, pokemonSearch.length]);
 
   return (
     <PageStyled>
       <Header />
+      <>
+        <input
+          value={pokemonSearch}
+          onChange={(event) => setPokemonSearch(event.target.value)}
+        />
+      </>
       <ListCardsStyled>
         {pokemons.map((element: any, index: number) => {
           return (
