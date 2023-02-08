@@ -3,7 +3,7 @@ import ModalInfo from "../../components/ModalInfo";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
 import { api } from "../../lib/axios";
-import { ListCardsStyled, PageStyled } from "./styles";
+import { ButtonStyled, ListCardsStyled, PageStyled, SearchContentstyled, SearchStyled } from "./styles";
 
 interface PokemonProps {
   id: string;
@@ -72,12 +72,14 @@ const Home = () => {
   return (
     <PageStyled>
       <Header />
-      <>
-        <input
+      <SearchContentstyled>
+        <SearchStyled
+        placeholder="Qual Pokémon você quer encontrar?"
           value={pokemonSearch}
           onChange={(event) => setPokemonSearch(event.target.value)}
         />
-      </>
+      </SearchContentstyled>
+      {pokemons.length > 0 ? (
       <ListCardsStyled>
         {pokemons.map((element: any, index: number) => {
           return (
@@ -94,12 +96,15 @@ const Home = () => {
           );
         })}
       </ListCardsStyled>
-      <button
+      ) : "Não foi encontrado nenhum pokémon"}
+      {pokemonSearch.length <= 2 && (
+      <ButtonStyled
         type="button"
         onClick={() => handleMorePokemons(pokemonsOffsetApi)}
       >
         CARREGAR MAIS
-      </button>
+      </ButtonStyled>
+      )}
     </PageStyled>
   );
 };
