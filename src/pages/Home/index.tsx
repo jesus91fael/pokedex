@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ModalInfo from "../../components/ModalInfo";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
@@ -6,16 +6,10 @@ import { api } from "../../lib/axios";
 import { ListCardsStyled, PageStyled } from "./styles";
 
 const Home = () => {
-  const [pokemons, setPokemons] = useState<any[]>([]);
+  let NUMBER_POKEMONS = 18;
 
-  useEffect(() => {
-    api
-      .get("/")
-      .then((response: any) => setPokemons(response.data.results))
-      .catch((err: any) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  }, []);
+  const [pokemons, setPokemons] = useState<any[]>([]);
+  const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
 
   const [show, setShow] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState("");
@@ -24,17 +18,53 @@ const Home = () => {
   const handleShow = (item: any) => {
     setItemSelecionado(item);
     setShow(true);
-  };
+  }
+  // useEffect(() => {
+  //   api
+  //     .get(`/`)
+  //     .then((response: any) => setPokemons(response.data.results))
+  //     .catch((err: any) => {
+  //       console.error("ops! ocorreu um erro" + err);
+  //     });
+  // }, [count, countInitial, pokemons]);
 
-  console.log("pokemon", pokemons);
-  const teste = [
-    { name: "pikachu" },
-    { name: "ditto" },
-    { name: "psyduck" },
-    { name: "bulbasaur" },
-    { name: "charmander" },
-    { name: "squirtle" },
-  ];
+  // const handleMorePokemons = () =>{
+  //   count = count + 20
+  // }
+  // ///
+
+  const handlePokemonsListDefault = useCallback(async () => {
+    const response = await api.get("/", {
+      params: {
+        limit: NUMBER_POKEMONS,
+      },
+    });
+    setPokemons(response.data.results);
+  }, [NUMBER_POKEMONS]);
+
+  
+const handleMorePokemons = useCallback(
+  async (offset: any) => {
+    const response = await api.get(`/`, {
+      params: {
+        offset,
+        limit: NUMBER_POKEMONS,
+      },
+    });
+
+    setPokemons(state => [...state, ...response.data.results]);
+    setPokemonsOffsetApi(state => state + NUMBER_POKEMONS);
+    console.log('pokemons', pokemons)
+  },
+  [NUMBER_POKEMONS, pokemons],
+);
+
+  
+
+  useEffect(() => {
+    handlePokemonsListDefault();
+  }, [handlePokemonsListDefault]);
+
   return (
     <PageStyled>
       <Header />
@@ -54,6 +84,12 @@ const Home = () => {
           );
         })}
       </ListCardsStyled>
+      <button
+        type="button"
+        onClick={() => handleMorePokemons(pokemonsOffsetApi)}
+      >
+        CARREGAR MAIS
+      </button>
     </PageStyled>
   );
 };
