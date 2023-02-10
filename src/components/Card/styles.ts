@@ -31,8 +31,7 @@ export const CardImageStyled = styled.div`
   align-items:  center;
   justify-content: center;
   padding: 10px;
-  //colocar cor de acordo com o tipo
-  background-color: #d6d6ff;
+  background-color: ${props => props.color};
   border-radius: 5px 5px 0 0;
 
 `

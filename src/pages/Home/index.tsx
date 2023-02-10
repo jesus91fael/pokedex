@@ -28,8 +28,7 @@ const Home = () => {
   };
 
   const handleSearchPokemons = useCallback(async () => {
-    const response = await api.get(`?limit=${NUMBER_MAX_POKEMONS_API}`);
-    console.log("entre");
+    const response = await api.get(`pokemon?limit=${NUMBER_MAX_POKEMONS_API}`);
     setPokemonSearch(pokemonSearch.toLocaleLowerCase());
     const pokemonsSearch = response.data.results.filter(
       ({ name }: PokemonProps) => name.includes(pokemonSearch)
@@ -38,7 +37,7 @@ const Home = () => {
   }, [pokemonSearch]);
 
   const handlePokemonsListDefault = useCallback(async () => {
-    const response = await api.get("/", {
+    const response = await api.get("/pokemon", {
       params: {
         limit: NUMBER_POKEMONS,
       },
@@ -48,7 +47,7 @@ const Home = () => {
 
   const handleMorePokemons = useCallback(
     async (offset: any) => {
-      const response = await api.get(`/`, {
+      const response = await api.get(`/pokemon`, {
         params: {
           offset,
           limit: NUMBER_POKEMONS,
@@ -66,8 +65,10 @@ const Home = () => {
     const isSearch = pokemonSearch.length >= 2;
 
     if (isSearch) handleSearchPokemons();
-    else handlePokemonsListDefault();
-  }, [handlePokemonsListDefault, handleSearchPokemons, pokemonSearch.length]);
+    else handlePokemonsListDefault()
+   
+  }, [handlePokemonsListDefault, handleSearchPokemons,pokemonSearch.length]);
+
 
   return (
     <PageStyled>
