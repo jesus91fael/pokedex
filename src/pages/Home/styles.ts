@@ -28,7 +28,6 @@ export const SearchStyled = styled.input`
 
   &:focus{
   border: 1px solid #e07f1f ;
-
   }
 `
 

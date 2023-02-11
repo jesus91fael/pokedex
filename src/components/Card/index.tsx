@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import {
   CardStyled,
   CardImageStyled,
@@ -8,18 +8,18 @@ import {
   TextNameStyled,
   CardDetailsStyled,
   ImageStyled,
-} from "./styles";
-import { CardProps } from "./interface";
-import { api } from "../../lib/axios";
-import { useTheme } from 'styled-components';
-import iconTypePokemon from '../../assets/types';
+} from "./styles"
+import { CardProps } from "./interface"
+import { api } from "../../lib/axios"
+import { useTheme } from "styled-components"
+import iconTypePokemon from "../../assets/types"
 
 const Card = ({ name }: CardProps) => {
   const [pokemon, setPokemon] = useState<any>({
     name: "",
     order: 0,
     image: "",
-  });
+  })
 
   useEffect(() => {
     api
@@ -32,11 +32,11 @@ const Card = ({ name }: CardProps) => {
         })
       )
       .catch((err: any) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  }, [name]);
+        console.error("ops! ocorreu um erro" + err)
+      })
+  }, [name])
 
-  const { colors } = useTheme();
+  const { colors } = useTheme()
 
   const [pokemonIndividual, setPokemonIndividual] = useState<any>({
     name: "",
@@ -47,24 +47,25 @@ const Card = ({ name }: CardProps) => {
     weight: 0,
     abilities: [],
     stats: [],
-  });
+  })
 
   useEffect(() => {
     api
       .get(`/pokemon/${name}`)
       .then((response: any) => {
-        let backgroundColor: keyof typeof iconTypePokemon = response?.data.types[0].type.name
-        if (backgroundColor === 'normal' && response?.data.types.length > 1) {
+        let backgroundColor: keyof typeof iconTypePokemon =
+          response?.data.types[0].type.name;
+        if (backgroundColor === "normal" && response?.data.types.length > 1) {
           backgroundColor = response?.data.types[0].type.name;
         }
-
 
         setPokemonIndividual({
           name: response.data.name,
           order: response.data.order,
           image: response.data.sprites.other.dream_world.front_default,
           types: response?.data?.types.map((pokemonType: any) => {
-            const typeName = pokemonType.type.name as keyof typeof iconTypePokemon;
+            const typeName = pokemonType.type
+              .name as keyof typeof iconTypePokemon;
             return {
               name: typeName,
               icon: iconTypePokemon[typeName],
@@ -74,14 +75,14 @@ const Card = ({ name }: CardProps) => {
           height: response.data.height,
           weight: response.data.weight,
           abilities: response.data.abilities,
-          stats: response?.data?.stats,       
-          color: colors.backgroundType[backgroundColor]
-        })}
-      )
+          stats: response?.data?.stats,
+          color: colors.backgroundType[backgroundColor],
+        })
+      })
       .catch((err: any) => {
-        console.error("ops! ocorreu um erro" + err);
+        console.error("ops! ocorreu um erro" + err)
       });
-  }, [name, colors.backgroundType, colors.type]);
+  }, [name, colors.backgroundType, colors.type])
 
   return (
     <CardStyled>
@@ -97,7 +98,7 @@ const Card = ({ name }: CardProps) => {
         </CardInfoTitle>
       </CardDetailsStyled>
     </CardStyled>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

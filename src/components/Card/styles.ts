@@ -33,7 +33,6 @@ export const CardImageStyled = styled.div`
   padding: 10px;
   background-color: ${props => props.color};
   border-radius: 5px 5px 0 0;
-
 `
 
 export const ImageStyled = styled.img`

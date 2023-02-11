@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme } from 'styled-components'
  
 const defaultTheme: DefaultTheme = {
   title: 'default',
@@ -67,6 +67,6 @@ const defaultTheme: DefaultTheme = {
       heavy: '#5A92A5',
     },
   },
-};
+}
 
-export default defaultTheme;
+export default defaultTheme

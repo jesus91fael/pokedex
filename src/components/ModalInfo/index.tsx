@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { api } from "../../lib/axios";
-import { ModalProps } from "./interface";
+import React, { useEffect, useState } from "react"
+import Button from "react-bootstrap/Button"
+import Modal from "react-bootstrap/Modal"
+import { api } from "../../lib/axios"
+import { ModalProps } from "./interface"
 import {
   AbilitiesStyled,
   IconStyled,
@@ -24,13 +24,12 @@ import {
   TitleStyled,
   TypeStyled,
   ValueAbilitiesStyled,
-} from "./styles";
-import { useTheme } from 'styled-components';
-import iconTypePokemon from '../../assets/types';
+} from "./styles"
+import { useTheme } from "styled-components"
+import iconTypePokemon from "../../assets/types"
 
 const ModalInfo = ({ isOpen, handleClose, name }: ModalProps) => {
-
-  const { colors } = useTheme();
+  const { colors } = useTheme()
 
   const [pokemon, setPokemon] = useState<any>({
     name: "",
@@ -41,41 +40,42 @@ const ModalInfo = ({ isOpen, handleClose, name }: ModalProps) => {
     weight: 0,
     abilities: [],
     stats: [],
-  });
+  })
 
   useEffect(() => {
     api
       .get(`/pokemon/${name}`)
       .then((response: any) => {
-        let backgroundColor: keyof typeof iconTypePokemon = response?.data.types[0].type.name
-        if (backgroundColor === 'normal' && response?.data.types.length > 1) {
-          backgroundColor = response?.data.types[0].type.name;
+        let backgroundColor: keyof typeof iconTypePokemon =
+          response?.data.types[0].type.name
+        if (backgroundColor === "normal" && response?.data.types.length > 1) {
+          backgroundColor = response?.data.types[0].type.name
         }
-
 
         setPokemon({
           name: response.data.name,
           order: response.data.order,
           image: response.data.sprites.other.dream_world.front_default,
           types: response?.data?.types.map((pokemonType: any) => {
-            const typeName = pokemonType.type.name as keyof typeof iconTypePokemon;
+            const typeName = pokemonType.type
+              .name as keyof typeof iconTypePokemon;
             return {
               name: typeName,
               icon: iconTypePokemon[typeName],
               color: colors.type[typeName],
-            };
+            }
           }),
           height: response.data.height,
           weight: response.data.weight,
           abilities: response.data.abilities,
-          stats: response?.data?.stats,       
-          color: colors.backgroundType[backgroundColor]
-        })}
-      )
+          stats: response?.data?.stats,
+          color: colors.backgroundType[backgroundColor],
+        })
+      })
       .catch((err: any) => {
-        console.error("ops! ocorreu um erro" + err);
+        console.error("ops! ocorreu um erro" + err)
       });
-  }, [name, colors.backgroundType, colors.type]);
+  }, [name, colors.backgroundType, colors.type])
 
   return (
     <Modal show={isOpen} onHide={handleClose}>
@@ -94,9 +94,13 @@ const ModalInfo = ({ isOpen, handleClose, name }: ModalProps) => {
           </ModalContentImageStyled>
           <ModalContentInfoStyled>
             <ModalContentTypeSdtyled>
-              
               {pokemon?.types.map((element: any, index: number) => {
-                return <TypeStyled key={index} color={element.color}><IconStyled>{element.icon}</IconStyled>{element.name}</TypeStyled>;
+                return (
+                  <TypeStyled key={index} color={element.color}>
+                    <IconStyled>{element.icon}</IconStyled>
+                    {element.name}
+                  </TypeStyled>
+                );
               })}
             </ModalContentTypeSdtyled>
             <ModalContentDetailStyled>
@@ -128,7 +132,10 @@ const ModalInfo = ({ isOpen, handleClose, name }: ModalProps) => {
                       {element.stat.name}
                     </TitleAbilitiesStyled>
                     <AbilitiesStyled>
-                      <ModalContentStatslineStyled color={pokemon.color} size={element.base_stat} />
+                      <ModalContentStatslineStyled
+                        color={pokemon.color}
+                        size={element.base_stat}
+                      />
                       <ValueAbilitiesStyled>
                         {element.base_stat}
                       </ValueAbilitiesStyled>
@@ -146,7 +153,7 @@ const ModalInfo = ({ isOpen, handleClose, name }: ModalProps) => {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export default ModalInfo;
+export default ModalInfo
